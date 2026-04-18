@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PawCare — Admin</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+<!-- Hamburger (mobile) -->
+<button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Buka menu">
+  <span id="hb1"></span>
+  <span id="hb2"></span>
+  <span id="hb3"></span>
+</button>
+
+<!-- Overlay gelap (mobile) -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="sidebar" id="mainSidebar">
+  <div class="sidebar-scroll">
+    <div class="sidebar-logo">🐾 PawCare <span class="admin-badge">Admin</span></div>
+
+    <span class="nav-section">Dashboard</span>
+    <button class="nav-item active" id="nav-overview"   onclick="showSection('overview');closeSidebar()">
+      📊 Ringkasan
+    </button>
+
+    <span class="nav-section">Kelola</span>
+    <button class="nav-item" id="nav-animals"    onclick="showSection('animals');closeSidebar()">
+      🐾 Data Hewan
+    </button>
+    <button class="nav-item" id="nav-adoptions"  onclick="showSection('adoptions');closeSidebar()">
+      📋 Pengajuan Adopsi
+      <span class="badge" id="pendingBadge" style="display:none">0</span>
+    </button>
+    <button class="nav-item" id="nav-users"      onclick="showSection('users');closeSidebar()">
+      👥 Pengguna
+    </button>
+    <button class="nav-item" id="nav-reports"    onclick="showSection('reports');closeSidebar()">
+      📝 Perkembangan Hewan Adopsi
+      <span class="badge" id="newReportBadge" style="display:none">0</span>
+    </button>
+    <button class="nav-item" id="nav-boardings"  onclick="showSection('boardings');closeSidebar()">
+      🏡 Penitipan Hewan
+      <span class="badge" id="newBoardingBadge" style="display:none">0</span>
+    </button>
+    <button class="nav-item" id="nav-complaints" onclick="showSection('complaints');closeSidebar()">
+      📣 Pengaduan
+      <span class="badge" id="newComplaintBadge" style="display:none">0</span>
+    </button>
+    <button class="nav-item" id="nav-donations"  onclick="showSection('donations');closeSidebar()">
+      🎁 Donasi Hewan
+      <span class="badge" id="newDonationBadge" style="display:none">0</span>
+    </button>
+  </div>
+
+    <div class="sidebar-bottom">
+      <div class="admin-info">
+        <div class="avatar">A</div>
+        <div>
+          <div class="admin-name">Administrator</div>
+          <div class="admin-role">Super Admin</div>
+        </div>
+      </div>
+      <button class="btn-logout" onclick="logout()">🚪 Keluar</button>
+    </div>
+  </aside>
+
+  <!-- ==================== KONTEN UTAMA ==================== -->
+  <main class="main-content">
+
+    <!-- Ringkasan -->
+    <section class="section active" id="section-overview">
+      <div class="page-header">
+        <h1>Dashboard Admin</h1>
+        <p>Selamat datang kembali, Administrator</p>
+      </div>
+      <div class="stat-grid" id="statGrid"></div>
+      <div class="table-container">
+        <div class="table-header">
+          <h3>Pengajuan Terbaru</h3>
+          <button class="btn-add" onclick="showSection('adoptions')">Lihat Semua →</button>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Hewan</th><th>Pengaju</th><th>Tanggal</th><th>Status</th></tr>
+          </thead>
+          <tbody id="recentAdoptions"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Data Hewan -->
+    <section class="section" id="section-animals">
+      <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">
+        <div>
+          <h1>Data Hewan</h1>
+          <p>Kelola daftar hewan yang tersedia untuk adopsi</p>
+        </div>
+        <button class="btn-print" onclick="printSection('animals')">🖨️ Cetak Laporan</button>
+      </div>
+      <div class="table-container">
+        <div class="table-header">
+          <h3>Daftar Hewan</h3>
+          <div style="display:flex;gap:0.75rem;align-items:center">
+            <input type="text" class="search-input" id="animalSearch" placeholder="Cari hewan..." oninput="renderAnimalsTable()">
+            <button class="btn-add" onclick="openAnimalModal()">+ Tambah Hewan</button>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Hewan</th><th>Jenis</th><th>Ras</th><th>Usia</th><th>Lokasi</th><th>Status</th><th>Aksi</th></tr>
+          </thead>
+          <tbody id="animalsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Pengajuan Adopsi -->
+    <section class="section" id="section-adoptions">
+      <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">
+        <div>
+          <h1>Pengajuan Adopsi</h1>
+          <p>Tinjau dan proses pengajuan adopsi dari pengguna</p>
+        </div>
+        <button class="btn-print" onclick="printSection('adoptions')">🖨️ Cetak Laporan</button>
+      </div>
+      <div class="table-container">
+        <div class="table-header">
+          <h3>Semua Pengajuan</h3>
+          <select class="search-input" id="adoptionFilter" onchange="renderAdoptionsTable()">
+            <option value="">Semua Status</option>
+            <option value="menunggu">Menunggu</option>
+            <option value="disetujui">Disetujui</option>
+            <option value="ditolak">Ditolak</option>
+          </select>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Hewan</th><th>Pengaju</th><th>Pengalaman</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr>
+          </thead>
+          <tbody id="adoptionsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Pengguna -->
+    <section class="section" id="section-users">
+      <div class="page-header">
+        <h1>Data Pengguna</h1>
+        <p>Daftar pengguna terdaftar di platform PawCare</p>
+      </div>
+      <div class="table-container">
+        <div class="table-header">
+          <h3>Semua Pengguna</h3>
+          <input type="text" class="search-input" id="userSearch" placeholder="Cari pengguna..." oninput="renderUsersTable()">
+        </div>
+        <table>
+          <thead>
+            <tr><th>Nama</th><th>Email</th><th>No. HP</th><th>Bergabung</th><th style="text-align:center">Pengajuan</th></tr>
+          </thead>
+          <tbody id="usersTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Laporan Perkembangan Hewan -->
+    <section class="section" id="section-reports">
+      <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">
+        <div>
+          <h1>Laporan Perkembangan Hewan</h1>
+          <p>Laporan kondisi hewan pasca adopsi yang dikirim oleh pengguna</p>
+        </div>
+        <button class="btn-print" onclick="printSection('reports')">🖨️ Cetak Laporan</button>
+      </div>
+
+      <div class="filter-chips" id="reportFilterChips">
+        <button class="chip active" onclick="filterReports('')"                data-filter="">Semua</button>
+        <button class="chip"        onclick="filterReports('baru')"            data-filter="baru">🟠 Baru</button>
+        <button class="chip"        onclick="filterReports('dibaca')"          data-filter="dibaca">🔵 Dibaca</button>
+        <button class="chip"        onclick="filterReports('dibalas')"         data-filter="dibalas">🟢 Dibalas</button>
+        <button class="chip"        onclick="filterReports('sangat-baik')"     data-filter="sangat-baik">⭐ Sangat Baik</button>
+        <button class="chip"        onclick="filterReports('perlu-perhatian')" data-filter="perlu-perhatian">🚨 Perlu Perhatian</button>
+      </div>
+
+      <div class="report-cards" id="reportCards"></div>
+    </section>
+
+    <!-- Penitipan Hewan -->
+    <section class="section" id="section-boardings">
+      <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">
+        <div>
+          <h1>Kelola Penitipan Hewan</h1>
+          <p>Tinjau dan kelola pengajuan penitipan dari pengguna</p>
+        </div>
+        <button class="btn-print" onclick="printSection('boardings')">🖨️ Cetak Laporan</button>
+      </div>
+
+      <!-- Statistik ringkas -->
+      <div class="boarding-stat-row" id="boardingStatRow"></div>
+
+      <!-- Filter chip -->
+      <div class="filter-chips" id="boardingFilterChips">
+        <button class="chip active" onclick="filterBoardings('')"             data-filter="">Semua</button>
+        <button class="chip"        onclick="filterBoardings('menunggu')"     data-filter="menunggu">🟠 Menunggu</button>
+        <button class="chip"        onclick="filterBoardings('disetujui')"    data-filter="disetujui">🟢 Disetujui</button>
+        <button class="chip"        onclick="filterBoardings('berlangsung')"  data-filter="berlangsung">🔵 Berlangsung</button>
+        <button class="chip"        onclick="filterBoardings('selesai')"      data-filter="selesai">🟣 Selesai</button>
+        <button class="chip"        onclick="filterBoardings('ditolak')"      data-filter="ditolak">🔴 Ditolak</button>
+      </div>
+
+      <div class="boarding-cards" id="boardingCards"></div>
+    </section>
+
+    <!-- Pengaduan / Komplain -->
+    <section class="section" id="section-complaints">
+      <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">
+        <div>
+          <h1>Kelola Pengaduan</h1>
+          <p>Tinjau dan tanggapi pengaduan dari pengguna</p>
+        </div>
+        <button class="btn-print" onclick="printSection('complaints')">🖨️ Cetak Laporan</button>
+      </div>
+
+      <!-- Statistik -->
+      <div class="complaint-stat-row" id="complaintStatRow"></div>
+
+      <!-- Filter chip -->
+      <div class="filter-chips" id="complaintFilterChips">
+        <button class="chip active" onclick="filterComplaints('')"           data-filter="">Semua</button>
+        <button class="chip"        onclick="filterComplaints('baru')"       data-filter="baru">🟠 Baru</button>
+        <button class="chip"        onclick="filterComplaints('diproses')"   data-filter="diproses">🔵 Diproses</button>
+        <button class="chip"        onclick="filterComplaints('selesai')"    data-filter="selesai">🟢 Selesai</button>
+        <button class="chip"        onclick="filterComplaints('ditutup')"    data-filter="ditutup">⚫ Ditutup</button>
+        <button class="chip"        onclick="filterComplaints('kritis')"     data-filter="kritis">🚨 Kritis</button>
+      </div>
+
+      <div class="complaint-cards" id="complaintCards"></div>
+    </section>
+
+    <!-- Sumbang Hewan -->
+    <section class="section" id="section-donations">
+      <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">
+        <div>
+          <h1>Sumbang Hewan dari Pengguna</h1>
+          <p>Tinjau dan setujui hewan yang ingin disumbangkan — jika disetujui, hewan otomatis masuk galeri adopsi</p>
+        </div>
+        <button class="btn-print" onclick="printSection('donations')">🖨️ Cetak Laporan</button>
+      </div>
+
+      <div class="donation-stat-row" id="donationStatRow"></div>
+
+      <div class="filter-chips" id="donationFilterChips">
+        <button class="chip active" onclick="filterDonations('')"           data-filter="">Semua</button>
+        <button class="chip"        onclick="filterDonations('menunggu')"   data-filter="menunggu">🟠 Menunggu Review</button>
+        <button class="chip"        onclick="filterDonations('disetujui')"  data-filter="disetujui">🟢 Disetujui</button>
+        <button class="chip"        onclick="filterDonations('ditolak')"    data-filter="ditolak">🔴 Ditolak</button>
+      </div>
+
+      <div class="donation-cards" id="donationCards"></div>
+    </section>
+
+  </main>
+
+  <!-- ==================== MODAL TAMBAH/EDIT HEWAN ==================== -->
+  <div class="modal-overlay" id="animalModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeAnimalModal()">✕</button>
+      <h2 id="animalModalTitle">Tambah Hewan</h2>
+
+      <div class="form-group">
+        <label>Nama Hewan</label>
+        <input type="text" id="aName" placeholder="cth: Luna">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Jenis Hewan</label>
+          <select id="aSpecies" onchange="previewSpeciesEmoji()">
+            <option value="Kucing">🐱 Kucing</option>
+            <option value="Anjing">🐕 Anjing</option>
+            <option value="Kelinci">🐇 Kelinci</option>
+            <option value="Burung">🦜 Burung</option>
+            <option value="Hamster">🐹 Hamster</option>
+            <option value="Lainnya">🐾 Lainnya</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ras / Breed</label>
+          <input type="text" id="aBreed" placeholder="cth: Persia">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Usia (tahun)</label>
+          <input type="number" id="aAge" min="0" max="30" placeholder="2">
+        </div>
+        <div class="form-group">
+          <label>Jenis Kelamin</label>
+          <select id="aGender">
+            <option value="Jantan">Jantan</option>
+            <option value="Betina">Betina</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Lokasi</label>
+        <input type="text" id="aLocation" placeholder="cth: Jakarta">
+      </div>
+      <div class="form-group">
+        <label>Deskripsi</label>
+        <textarea id="aDesc" placeholder="Ceritakan tentang hewan ini..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="aStatus">
+          <option value="available">Tersedia</option>
+          <option value="pending">Proses Adopsi</option>
+          <option value="adopted">Sudah Diadopsi</option>
+        </select>
+      </div>
+      <input type="hidden" id="aEditId">
+      <button class="btn-primary" style="width:100%;margin-top:0.5rem" onclick="saveAnimal()">Simpan</button>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL TINJAU ADOPSI ==================== -->
+  <div class="modal-overlay" id="reviewModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeReviewModal()">✕</button>
+      <h2>Tinjau Pengajuan</h2>
+      <div id="reviewDetails"></div>
+      <div class="form-group">
+        <label>Catatan Admin (opsional)</label>
+        <textarea class="note-input" id="adminNote" placeholder="Tulis catatan untuk pengaju..."></textarea>
+      </div>
+      <div class="review-actions">
+        <button class="btn-submit btn-submit-approve" onclick="processAdoption('disetujui')">✅ Setujui</button>
+        <button class="btn-submit btn-submit-reject"  onclick="processAdoption('ditolak')">❌ Tolak</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL TINJAU SUMBANG ==================== -->
+  <div class="modal-overlay" id="donationReviewModal">
+    <div class="modal" style="max-width:560px">
+      <button class="modal-close" onclick="closeDonationReviewModal()">✕</button>
+      <h2>Tinjau Donasi Hewan</h2>
+      <div id="donationReviewDetail"></div>
+
+      <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--green);margin:1rem 0 0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--warm)">
+        ✏️ Edit Data Sebelum Dipublikasikan
+      </div>
+      <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:1rem">
+        Sesuaikan data di bawah sebelum hewan ini masuk ke galeri adopsi.
+      </p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nama</label>
+          <input type="text" id="drName">
+        </div>
+        <div class="form-group">
+          <label>Emoji</label>
+          <input type="text" id="drImage" maxlength="2" style="text-align:center;font-size:1.4rem">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Jenis</label>
+          <select id="drSpecies">
+            <option>Kucing</option><option>Anjing</option><option>Kelinci</option>
+            <option>Burung</option><option>Hamster</option><option>Lainnya</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ras</label>
+          <input type="text" id="drBreed">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Usia (tahun)</label>
+          <input type="number" id="drAge" min="0" max="30">
+        </div>
+        <div class="form-group">
+          <label>Kelamin</label>
+          <select id="drGender">
+            <option value="Jantan">Jantan</option>
+            <option value="Betina">Betina</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Lokasi</label>
+        <input type="text" id="drLocation">
+      </div>
+      <div class="form-group">
+        <label>Deskripsi (tampil di galeri)</label>
+        <textarea id="drDesc" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Catatan untuk Pendonor (opsional)</label>
+        <textarea class="note-input" id="drAdminNote"
+          placeholder="Alasan persetujuan / penolakan, atau pesan ke pendonor..."></textarea>
+      </div>
+      <input type="hidden" id="drDonationId">
+
+      <div style="display:flex;gap:0.75rem;margin-top:0.75rem">
+        <button class="btn-submit btn-submit-approve" onclick="processDonation('disetujui')">
+          ✅ Setujui & Publikasikan
+        </button>
+        <button class="btn-submit btn-submit-reject" onclick="processDonation('ditolak')">
+          ❌ Tolak
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Area cetak (diisi oleh JS saat mencetak) -->
+  <div id="printArea" style="display:none"></div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- storage.js HARUS dimuat sebelum admin.js -->
+  <script src="../js/storage.js"></script>
+  <script src="../js/admin.js"></script>
+  <script src="../js/print-admin.js"></script>
+</body>
+</html>

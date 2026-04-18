@@ -1,0 +1,1116 @@
+/* ============================================================
+   admin.css — Gaya khusus halaman admin (admin.html)
+   ============================================================ */
+
+:root {
+  --admin-accent: #2D3561;
+}
+
+body { display: flex; }
+
+/* ---- Sidebar admin ---- */
+.sidebar {
+  background: var(--admin-accent);
+}
+
+/* Pastikan scroll area inherit background sidebar */
+.sidebar-scroll {
+  background: var(--admin-accent);
+}
+
+/* Border bottom yang sesuai warna admin */
+.sidebar-bottom {
+  border-top-color: rgba(255,255,255,0.1);
+  background: var(--admin-accent);
+}
+
+.sidebar-logo {
+  font-size: 1.3rem;
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.admin-badge {
+  font-size: 0.62rem;
+  background: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.65);
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-left: auto;
+}
+
+.nav-section {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.33);
+  margin-bottom: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.nav-item { color: rgba(255,255,255,0.6); }
+.nav-item:hover,
+.nav-item.active { background: rgba(255,255,255,0.1); color: white; }
+.nav-item.active { background: rgba(74,124,89,0.4); color: #A8D5B8; }
+
+/* ---- Badge jumlah menunggu ---- */
+.badge {
+  margin-left: auto;
+  background: var(--orange);
+  color: white;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 99px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ---- Info admin di sidebar ---- */
+.admin-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background: rgba(255,255,255,0.07);
+  margin-bottom: 0.75rem;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  background: var(--green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.admin-name { color: white;                 font-size: 0.88rem; font-weight: 600; }
+.admin-role { color: rgba(255,255,255,0.4); font-size: 0.72rem; }
+
+.btn-logout {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border-radius: 0.75rem;
+  background: rgba(255,100,80,0.15);
+  color: rgba(255,160,140,0.9);
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.btn-logout:hover { background: rgba(255,100,80,0.3); }
+
+/* ---- Grid statistik ---- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-card {
+  background: var(--white);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(92,74,42,0.06);
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::after {
+  content: attr(data-icon);
+  position: absolute;
+  bottom: -8px;
+  right: -4px;
+  font-size: 4rem;
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-light); margin-bottom: 0.4rem; }
+.stat-value { font-size: 2.2rem; font-weight: 700; color: var(--brown-dark); }
+.stat-sub   { font-size: 0.76rem; color: var(--text-light); margin-top: 0.3rem; display: flex; align-items: center; gap: 4px; }
+.stat-dot   { display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* ---- Kontainer tabel ---- */
+.table-container {
+  background: var(--white);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(92,74,42,0.06);
+  overflow-x: auto;
+  margin-bottom: 2rem;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.table-header h3 { font-size: 1.2rem; color: var(--brown-dark); }
+
+/* ---- Tabel ---- */
+table { width: 100%; border-collapse: collapse; }
+
+th {
+  text-align: left;
+  padding: 0.7rem 1rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-light);
+  border-bottom: 1.5px solid var(--warm);
+  font-weight: 600;
+  white-space: nowrap;
+}
+td {
+  padding: 0.85rem 1rem;
+  font-size: 0.88rem;
+  color: var(--text);
+  border-bottom: 1px solid var(--cream);
+  vertical-align: middle;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td      { background: rgba(74,124,89,0.03); }
+
+/* ---- Tombol aksi tabel ---- */
+.action-btns { display: flex; gap: 0.4rem; }
+
+.btn-icon {
+  padding: 5px 10px;
+  border-radius: 0.4rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.btn-approve { background: #E8F5EE; color: #2C7A4E; }
+.btn-approve:hover { background: #C5E6D1; }
+.btn-reject  { background: #FEE2E2; color: #B91C1C; }
+.btn-reject:hover  { background: #FEB8B8; }
+.btn-edit    { background: #EEF0FF; color: #4B56B5; }
+.btn-edit:hover    { background: #D8DCFF; }
+.btn-delete  { background: #FFF0ED; color: #C0442C; }
+.btn-delete:hover  { background: #FFD8D0; }
+
+/* ---- Tombol tambah hewan ---- */
+.btn-add {
+  padding: 0.6rem 1.2rem;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 0.6rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.btn-add:hover { background: var(--green-light); }
+
+/* ---- Input pencarian dalam tabel ---- */
+.search-input {
+  padding: 0.6rem 1rem;
+  border: 1.5px solid var(--warm);
+  border-radius: 0.65rem;
+  background: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.86rem;
+  color: var(--text);
+  outline: none;
+  min-width: 180px;
+  transition: border-color 0.2s;
+}
+.search-input:focus { border-color: var(--green); }
+
+/* ---- Detail kotak pada modal review ---- */
+.detail-box {
+  background: var(--cream);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  font-size: 0.86rem;
+  line-height: 1.9;
+  color: var(--text);
+}
+.detail-box strong { color: var(--brown-dark); }
+
+/* ---- Textarea catatan admin ---- */
+.note-input {
+  background: #FFFBE8;
+  border: 1.5px solid #FFDCA8;
+  padding: 0.7rem 1rem;
+  border-radius: 0.65rem;
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  outline: none;
+  resize: none;
+  min-height: 70px;
+  transition: border-color 0.2s;
+}
+.note-input:focus { border-color: var(--orange); }
+
+/* ============================================================
+   LAPORAN PERKEMBANGAN — SISI ADMIN
+   ============================================================ */
+
+/* ---- Filter chip kondisi ---- */
+.filter-chips {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.chip {
+  padding: 5px 14px;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1.5px solid var(--warm);
+  background: var(--white);
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.18s;
+  font-family: 'DM Sans', sans-serif;
+}
+.chip:hover  { border-color: var(--green); color: var(--green); }
+.chip.active { background: var(--green); border-color: var(--green); color: white; }
+
+/* ---- Kartu laporan di admin ---- */
+.report-cards { display: flex; flex-direction: column; gap: 1rem; }
+
+.report-card {
+  background: var(--white);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(92,74,42,0.06);
+  border-left: 4px solid var(--green);
+  transition: box-shadow 0.2s;
+}
+.report-card:hover { box-shadow: 0 6px 20px rgba(92,74,42,0.1); }
+.report-card.unread { border-left-color: var(--orange); background: #FFFDF5; }
+
+.rc-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.rc-left { display: flex; align-items: center; gap: 0.85rem; }
+.rc-emoji { font-size: 2rem; }
+.rc-animal-name { font-size: 1rem; font-weight: 700; color: var(--brown-dark); }
+.rc-user-name   { font-size: 0.8rem; color: var(--text-light); margin-top: 0.1rem; }
+.rc-date        { font-size: 0.75rem; color: var(--text-light); white-space: nowrap; flex-shrink: 0; }
+
+.rc-kondisi {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.6rem;
+}
+.kondisi-sangat-baik     { background: #D1FAE5; color: #065F46; }
+.kondisi-baik            { background: #E8F5EE; color: #2C7A4E; }
+.kondisi-cukup           { background: #FEF3E2; color: #B45309; }
+.kondisi-perlu-perhatian { background: #FEE2E2; color: #B91C1C; }
+
+.rc-body  { font-size: 0.88rem; color: var(--text); line-height: 1.65; margin-bottom: 0.75rem; }
+.rc-tags  { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+.rc-tag   { padding: 3px 10px; background: var(--cream); border: 1px solid var(--warm); border-radius: 99px; font-size: 0.75rem; color: var(--text-light); }
+
+.rc-actions { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+
+.rc-reply-area {
+  margin-top: 0.85rem;
+  display: none;
+}
+.rc-reply-area.open { display: block; }
+
+.rc-reply-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--warm);
+  border-radius: 0.65rem;
+  background: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text);
+  resize: none;
+  min-height: 70px;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 0.5rem;
+}
+.rc-reply-input:focus { border-color: var(--green); }
+
+/* Balasan yang sudah dikirim */
+.rc-existing-reply {
+  padding: 0.7rem 1rem;
+  background: #F0F7FF;
+  border-radius: 0.6rem;
+  border-left: 3px solid #60A5FA;
+  font-size: 0.84rem;
+  color: #1E40AF;
+  margin-top: 0.75rem;
+}
+.rc-existing-reply strong { color: #1D4ED8; }
+
+.rstat-badge {
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.rstat-baru    { background: #FEF3E2; color: #B45309; }
+.rstat-dibaca  { background: #EEF0FF; color: #4B56B5; }
+.rstat-dibalas { background: #E8F5EE; color: #2C7A4E; }
+
+/* ---- Tombol setuju / tolak dalam modal ---- */
+.review-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+.btn-submit {
+  flex: 1;
+  padding: 0.85rem;
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-submit:hover { opacity: 0.88; }
+.btn-submit-approve { background: var(--green); }
+.btn-submit-reject  { background: var(--red); }
+
+/* ---- Responsif ---- */
+@media (max-width: 1200px) {
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ============================================================
+   PENITIPAN HEWAN — SISI ADMIN
+   ============================================================ */
+
+/* ---- Kartu statistik penitipan ---- */
+.boarding-stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+@media (max-width: 1200px) { .boarding-stat-row { grid-template-columns: 1fr 1fr; } }
+
+/* ---- Kartu pengajuan penitipan ---- */
+.boarding-cards { display: flex; flex-direction: column; gap: 1rem; }
+
+.boarding-card {
+  background: var(--white);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(92,74,42,0.06);
+  border-left: 4px solid var(--brown);
+  transition: box-shadow 0.2s;
+}
+.boarding-card:hover { box-shadow: 0 6px 20px rgba(92,74,42,0.1); }
+.boarding-card.status-menunggu    { border-left-color: var(--orange); }
+.boarding-card.status-disetujui   { border-left-color: var(--green);  }
+.boarding-card.status-ditolak     { border-left-color: var(--red);    }
+.boarding-card.status-berlangsung { border-left-color: #0891B2;       }
+.boarding-card.status-selesai     { border-left-color: #6D28D9;       }
+
+.bc-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.bc-left    { display: flex; align-items: center; gap: 0.85rem; }
+.bc-emoji   { font-size: 2.2rem; flex-shrink: 0; }
+.bc-top     { font-size: 1rem; font-weight: 700; color: var(--brown-dark); }
+.bc-user    { font-size: 0.8rem; color: var(--text-light); margin-top: 0.15rem; }
+.bc-date    { font-size: 0.75rem; color: var(--text-light); text-align: right; white-space: nowrap; }
+
+.bc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.bc-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  background: var(--cream);
+  padding: 3px 10px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--warm);
+}
+.bc-tag strong { color: var(--text); }
+
+.bc-services { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.85rem; }
+.bc-service-tag {
+  padding: 3px 10px;
+  background: #EDF7F1;
+  color: var(--green);
+  border: 1px solid #B5D9C2;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.bc-note {
+  font-size: 0.84rem;
+  color: var(--text-light);
+  background: var(--cream);
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.bc-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-top: 0.5rem; }
+
+/* Status pill penitipan */
+.bpill {
+  padding: 3px 12px;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.bpill-menunggu    { background: #FEF3E2; color: #B45309; }
+.bpill-disetujui   { background: #E8F5EE; color: #2C7A4E; }
+.bpill-ditolak     { background: #FEE2E2; color: #B91C1C; }
+.bpill-berlangsung { background: #E0F2FE; color: #0369A1; }
+.bpill-selesai     { background: #F3F0FF; color: #6D28D9; }
+
+/* Textarea catatan balasan untuk boarding */
+.bc-note-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--warm);
+  border-radius: 0.65rem;
+  background: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text);
+  resize: none;
+  min-height: 65px;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 0.5rem;
+}
+.bc-note-input:focus { border-color: var(--green); }
+
+/* Area aksi setuju/tolak (tersembunyi awalnya) */
+.bc-process-area {
+  display: none;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background: var(--cream);
+  border-radius: 0.75rem;
+  border: 1.5px solid var(--warm);
+}
+.bc-process-area.open { display: block; }
+
+.bc-process-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+
+/* ============================================================
+   PENGADUAN / KOMPLAIN — SISI ADMIN
+   ============================================================ */
+
+/* ---- Kartu komplain di admin ---- */
+.complaint-cards { display: flex; flex-direction: column; gap: 1rem; }
+
+.complaint-card {
+  background: var(--white);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(92,74,42,0.06);
+  border-left: 4px solid var(--orange);
+  transition: box-shadow 0.2s;
+}
+.complaint-card:hover           { box-shadow: 0 6px 20px rgba(92,74,42,0.1); }
+.complaint-card.cs-baru         { border-left-color: var(--orange); background: #FFFDF5; }
+.complaint-card.cs-diproses     { border-left-color: #0891B2; }
+.complaint-card.cs-selesai      { border-left-color: var(--green); }
+.complaint-card.cs-ditutup      { border-left-color: var(--text-light); opacity: 0.75; }
+
+/* Header kartu */
+.cc-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+.cc-left     { flex: 1; }
+.cc-title    { font-size: 1rem; font-weight: 700; color: var(--brown-dark); margin-bottom: 0.2rem; }
+.cc-user     { font-size: 0.8rem; color: var(--text-light); }
+.cc-right    { text-align: right; flex-shrink: 0; }
+.cc-date     { font-size: 0.73rem; color: var(--text-light); margin-top: 0.25rem; }
+
+/* Meta row */
+.cc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  align-items: center;
+}
+
+.cc-topic-tag {
+  padding: 3px 10px;
+  background: #FFF0E6;
+  border: 1px solid #F5C4A0;
+  color: #C05A1F;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Status dan urgensi (sama dengan user tapi prefix cc-) */
+.cc-urgency {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.urgency-rendah { background: #E8F5EE; color: #2C7A4E; }
+.urgency-sedang { background: #FEF3E2; color: #B45309; }
+.urgency-tinggi { background: #FEE2E2; color: #B91C1C; }
+.urgency-kritis { background: #4B0082; color: #FFEEFF; }
+
+.cc-status-pill {
+  padding: 3px 12px;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.cspill-baru      { background: #FEF3E2; color: #B45309; }
+.cspill-diproses  { background: #E0F2FE; color: #0369A1; }
+.cspill-selesai   { background: #E8F5EE; color: #2C7A4E; }
+.cspill-ditutup   { background: #F1EFE8; color: #5F5E5A; }
+
+.cc-body {
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 0.75rem;
+  white-space: pre-wrap;
+}
+
+/* Lampiran teks ringkasan (referensi transaksi) */
+.cc-ref {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  background: var(--cream);
+  padding: 0.5rem 0.85rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--warm);
+}
+.cc-ref strong { color: var(--text); }
+
+/* Riwayat balasan */
+.cc-replies { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.75rem; }
+.cc-reply-bubble {
+  background: #F0F7FF;
+  border-left: 3px solid #60A5FA;
+  border-radius: 0 0.65rem 0.65rem 0;
+  padding: 0.65rem 1rem;
+  font-size: 0.84rem;
+  color: #1E40AF;
+  line-height: 1.55;
+}
+.cc-reply-bubble .rb-meta {
+  font-size: 0.72rem;
+  color: #93C5FD;
+  margin-bottom: 0.2rem;
+}
+
+/* Rating yang diberikan user */
+.cc-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+}
+.cc-stars { color: #F59E0B; font-size: 1rem; letter-spacing: 1px; }
+
+/* Area balas */
+.cc-reply-area {
+  display: none;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background: var(--cream);
+  border-radius: 0.75rem;
+  border: 1.5px solid var(--warm);
+}
+.cc-reply-area.open { display: block; }
+.cc-reply-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--warm);
+  border-radius: 0.65rem;
+  background: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text);
+  resize: none;
+  min-height: 80px;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 0.5rem;
+}
+.cc-reply-textarea:focus { border-color: var(--green); }
+
+.cc-reply-actions { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+
+/* Ubah status inline */
+.cc-status-select {
+  padding: 5px 10px;
+  border: 1.5px solid var(--warm);
+  border-radius: 0.5rem;
+  background: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  color: var(--text);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.cc-status-select:focus { border-color: var(--green); }
+
+/* Stat row untuk ringkasan */
+.complaint-stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+@media (max-width: 1200px) { .complaint-stat-row { grid-template-columns: 1fr 1fr; } }
+
+/* ============================================================
+   SUMBANG HEWAN — SISI ADMIN
+   ============================================================ */
+
+/* ---- Kartu sumbang di admin ---- */
+.donation-admin-cards { display: flex; flex-direction: column; gap: 1rem; }
+
+.donation-admin-card {
+  background: var(--white);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(92,74,42,0.06);
+  border-left: 4px solid var(--brown);
+  transition: box-shadow 0.2s;
+}
+.donation-admin-card:hover           { box-shadow: 0 6px 20px rgba(92,74,42,0.1); }
+.donation-admin-card.dst-menunggu    { border-left-color: var(--orange); background: #FFFDF5; }
+.donation-admin-card.dst-disetujui   { border-left-color: var(--green); }
+.donation-admin-card.dst-ditolak     { border-left-color: var(--red); }
+.donation-admin-card.dst-diadopsi    { border-left-color: #6D28D9; }
+
+/* Header */
+.dac-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+.dac-left  { display: flex; align-items: center; gap: 0.85rem; }
+.dac-emoji { font-size: 2.4rem; flex-shrink: 0; }
+.dac-name  { font-size: 1rem; font-weight: 700; color: var(--brown-dark); }
+.dac-donor { font-size: 0.8rem; color: var(--text-light); margin-top: 0.15rem; }
+.dac-right { text-align: right; flex-shrink: 0; }
+.dac-date  { font-size: 0.72rem; color: var(--text-light); margin-top: 0.25rem; }
+
+/* Status pill */
+.dac-status {
+  padding: 3px 12px;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.dstp-menunggu  { background: #FEF3E2; color: #B45309; }
+.dstp-disetujui { background: #E8F5EE; color: #2C7A4E; }
+.dstp-ditolak   { background: #FEE2E2; color: #B91C1C; }
+.dstp-diadopsi  { background: #F3F0FF; color: #6D28D9; }
+
+/* Meta row */
+.dac-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.dac-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  background: var(--cream);
+  padding: 3px 10px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--warm);
+}
+.dac-tag strong { color: var(--text); }
+
+/* Kondisi kesehatan tag */
+.dac-health-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
+.dac-health-tag {
+  padding: 3px 10px;
+  background: #EDF7F1;
+  color: var(--green);
+  border: 1px solid #B5D9C2;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.dac-desc {
+  font-size: 0.87rem;
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 0.75rem;
+}
+
+/* Area proses (review) */
+.dac-process-area {
+  display: none;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background: var(--cream);
+  border-radius: 0.75rem;
+  border: 1.5px solid var(--warm);
+}
+.dac-process-area.open { display: block; }
+
+.dac-note-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--warm);
+  border-radius: 0.65rem;
+  background: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text);
+  resize: none;
+  min-height: 65px;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 0.75rem;
+}
+.dac-note-input:focus { border-color: var(--green); }
+
+/* Jika disetujui, form edit data hewan sebelum dipublish */
+.dac-publish-form {
+  display: none;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background: #EDF7F1;
+  border-radius: 0.75rem;
+  border: 1.5px solid #B5D9C2;
+}
+.dac-publish-form.open { display: block; }
+.dac-publish-form .pf-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--green);
+  margin-bottom: 0.75rem;
+}
+
+/* Stat row donasi */
+.donation-stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+@media (max-width: 1200px) { .donation-stat-row { grid-template-columns: 1fr 1fr; } }
+
+/* ============================================================
+   DONASI HEWAN — SISI ADMIN
+   ============================================================ */
+
+.donation-stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+@media (max-width: 1200px) { .donation-stat-row { grid-template-columns: 1fr 1fr; } }
+
+.donation-cards { display: flex; flex-direction: column; gap: 1rem; }
+
+.donation-card {
+  background: var(--white);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(92,74,42,0.06);
+  border-left: 4px solid #7C3AED;
+  transition: box-shadow 0.2s;
+}
+.donation-card:hover               { box-shadow: 0 6px 20px rgba(92,74,42,0.1); }
+.donation-card.ds-menunggu         { border-left-color: var(--orange); background: #FFFDF5; }
+.donation-card.ds-disetujui        { border-left-color: var(--green); }
+.donation-card.ds-ditolak          { border-left-color: var(--red); opacity: 0.8; }
+
+/* Header */
+.dc-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+.dc-left    { display: flex; align-items: center; gap: 0.85rem; }
+.dc-emoji   { font-size: 2.4rem; flex-shrink: 0; }
+.dc-name    { font-size: 1rem; font-weight: 700; color: var(--brown-dark); }
+.dc-user    { font-size: 0.8rem; color: var(--text-light); margin-top: 0.15rem; }
+.dc-right   { text-align: right; flex-shrink: 0; }
+.dc-date    { font-size: 0.73rem; color: var(--text-light); margin-top: 0.25rem; }
+
+/* Spesifikasi hewan */
+.dc-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  align-items: center;
+}
+.dc-spec-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  background: var(--cream);
+  padding: 3px 10px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--warm);
+}
+.dc-spec-tag strong { color: var(--text); }
+
+/* Kondisi badge */
+.dc-kondisi-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
+.dc-kondisi-tag {
+  padding: 3px 10px;
+  background: #F5F3FF;
+  border: 1px solid #C4B5FD;
+  color: #5B21B6;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.dc-desc {
+  font-size: 0.87rem;
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 0.75rem;
+}
+
+.dc-alasan {
+  font-size: 0.84rem;
+  color: var(--text-light);
+  background: var(--cream);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  margin-bottom: 0.75rem;
+  font-style: italic;
+  border: 1px solid var(--warm);
+  line-height: 1.6;
+}
+
+/* Status pill donasi */
+.dpill {
+  padding: 3px 12px;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.dpill-menunggu  { background: #FEF3E2; color: #B45309; }
+.dpill-disetujui { background: #E8F5EE; color: #2C7A4E; }
+.dpill-ditolak   { background: #FEE2E2; color: #B91C1C; }
+
+/* Area proses */
+.dc-process-area {
+  display: none;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background: var(--cream);
+  border-radius: 0.75rem;
+  border: 1.5px solid var(--warm);
+}
+.dc-process-area.open { display: block; }
+
+.dc-process-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.dc-note-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--warm);
+  border-radius: 0.65rem;
+  background: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text);
+  resize: none;
+  min-height: 70px;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 0.5rem;
+}
+.dc-note-input:focus { border-color: var(--green); }
+
+/* Form kustomisasi sebelum approve */
+.dc-customize-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.dc-field label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.3rem;
+}
+.dc-field input, .dc-field select, .dc-field textarea {
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  border: 1.5px solid var(--warm);
+  border-radius: 0.6rem;
+  background: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.dc-field input:focus, .dc-field select:focus, .dc-field textarea:focus { border-color: var(--green); }
+
+.dc-process-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; }
+
+/* ============================================================
+   HAMBURGER MENU — ADMIN
+   ============================================================ */
+.hamburger {
+  background: var(--admin-accent);
+}
+.hamburger span {
+  background: white;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ============================================================
+   TOMBOL CETAK RIWAYAT — SISI PENGGUNA
+   ============================================================ */
+.btn-print {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  background: var(--white);
+  color: var(--brown-dark);
+  border: 1.5px solid var(--warm);
+  border-radius: 0.6rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-print:hover {
+  background: var(--brown-dark);
+  color: white;
+  border-color: var(--brown-dark);
+}
